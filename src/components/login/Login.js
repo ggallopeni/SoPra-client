@@ -6,10 +6,12 @@ import User from "../shared/models/User";
 import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
-const FormContainer = styled.div`
+const FormContainer1 = styled.div`
   margin-top: 2em;
   display: flex;
+  float:right;
   flex-direction: column;
+  width: 50%;
   align-items: center;
   min-height: 300px;
   justify-content: center;
@@ -19,7 +21,7 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 80%;
   height: 375px;
   font-size: 16px;
   font-weight: 300;
@@ -43,14 +45,19 @@ const InputField = styled.input`
   background: rgba(255, 255, 255, 0.2);
   color: white;
 `;
-
-const Label = styled.label`
+export const Titel = styled.label`
+  color: white;
+  font-size:22px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+`;
+export const Label = styled.label`
   color: white;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
@@ -75,8 +82,8 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: null,
-      username: null
+      username: null,
+      password: null
     };
   }
   /**
@@ -84,24 +91,32 @@ class Login extends React.Component {
    * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
    */
   login() {
-    fetch(`${getDomain()}/users`, {
+    fetch(`${getDomain()}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        password: this.state.password
       })
     })
-      .then(response => response.json())
+
       .then(returnedUser => {
-        const user = new User(returnedUser);
-        // store the token into the local storage
-        localStorage.setItem("token", user.token);
-        // user login successfully worked --> navigate to the route /game in the GameRouter
-        this.props.history.push(`/game`);
+
+        if(returnedUser.ok){
+          //console.log(returnedUser)
+          // store the token into the local storage
+          localStorage.setItem("token", returnedUser.token);
+          // user login successfully worked --> navigate to the route /game in the GameRouter
+          this.props.history.push(`/game`);
+        }
+        else{
+          alert("User not known.")
+        }
+
       })
+
       .catch(err => {
         if (err.message.match(/Failed to fetch/)) {
           alert("The server cannot be reached. Did you start it?");
@@ -133,8 +148,9 @@ class Login extends React.Component {
 
   render() {
     return (
-      <BaseContainer>
-        <FormContainer>
+          <BaseContainer>
+        <FormContainer1>
+          <Titel>Log-In</Titel>
           <Form>
             <Label>Username</Label>
             <InputField
@@ -143,26 +159,27 @@ class Login extends React.Component {
                 this.handleInputChange("username", e.target.value);
               }}
             />
-            <Label>Name</Label>
+            <Label>Password</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange("name", e.target.value);
+                this.handleInputChange("password", e.target.value);
               }}
             />
+
             <ButtonContainer>
               <Button
-                disabled={!this.state.username || !this.state.name}
+                disabled={!this.state.username || !this.state.password}
                 width="50%"
                 onClick={() => {
                   this.login();
                 }}
               >
-                Login
+                Login!
               </Button>
             </ButtonContainer>
           </Form>
-        </FormContainer>
+        </FormContainer1>
       </BaseContainer>
     );
   }

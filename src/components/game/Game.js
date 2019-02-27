@@ -7,6 +7,7 @@ import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 
+
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
@@ -38,7 +39,7 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`${getDomain()}/users`, {
+    fetch(`${getDomain()}/login`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -72,7 +73,8 @@ class Game extends React.Component {
               {this.state.users.map(user => {
                 return (
                   <PlayerContainer key={user.id}>
-                    <Player user={user} />
+                    <Player user={user}  />
+
                   </PlayerContainer>
                 );
               })}
@@ -85,6 +87,7 @@ class Game extends React.Component {
             >
               Logout
             </Button>
+
           </div>
         )}
       </Container>

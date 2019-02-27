@@ -10,5 +10,6 @@ export const BaseContainer = styled.div`
   padding-left: 15px;
   margin-right: auto;
   padding-right: 15px;
+  flex-direction: row;
   max-width: ${DESKTOP_WIDTH}px;
 `;
