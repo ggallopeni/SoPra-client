@@ -1,11 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import {getDomain} from "../helpers/getDomain";
-import {DESKTOP_WIDTH} from "../helpers/layout";
-import {Id, Name, UserName} from "./Player";
-import Player from "./Player";
-import Game from "../components/game/Game";
-import {ProfileGuard} from "../components/shared/routeProtectors/ProfileGuard";
 import "./UserProfileStylesheet.css"
 
 

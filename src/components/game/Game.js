@@ -7,9 +7,6 @@ import {Id, Name, UserName} from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
-import UserProfile from "../../views/UserProfile";
-import { Route } from "react-router-dom";
-import "/Users/getoargallopeni/Desktop/SoPra-client/src/views/UserProfileStylesheet.css";
 
 
 
@@ -117,7 +114,7 @@ class Game extends React.Component {
 
 
                     <PlayerContainer key={user.id}>
-                      <Player className="username" user={user}/>
+                      <Player user={user}/>
                   </PlayerContainer>
                 );
               })}
