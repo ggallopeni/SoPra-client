@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-//import { Titel, Form, InputField, ButtonContainer, Label } from "./Login";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import User from "../shared/models/User";
@@ -66,6 +65,7 @@ const ButtonContainer = styled.div`
 
 class Register extends React.Component {
 
+
     constructor(){
         super();
         this.state = {
@@ -76,7 +76,7 @@ class Register extends React.Component {
     }
 
     login(){
-        fetch(`${getDomain()}/loginregister`, {
+        fetch(`${getDomain()}/users`, {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -87,21 +87,22 @@ class Register extends React.Component {
                 password: this.state.passwordRegister
             })
         })
-            //.then(response => response.json())
+
             .then(returnedUser => {
 
                 if(returnedUser.ok){
-                    console.log(returnedUser);
+                    console.log(returnedUser.json());
 
                     const user = new User(returnedUser);
-                    localStorage.setItem("token", user.token);
-                    this.props.history.push(`/game`);
+                    //localStorage.setItem("token", user.token);
+                    this.props.history.push(`/login`);
                 }
                 else {
                     alert("username already taken!");
                 }
-
             })
+
+
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
                     alert("################\nThe server cannot be reached. Did you start it?");
@@ -136,9 +137,7 @@ class Register extends React.Component {
                     <Label>name</Label>
                     <InputField
                         placeholder="Other Enter here.."
-                        onClick={e => {
-                            e.target.placeholder="Choose your pw wisely";
-                        }}
+
                         onChange={e => {
                             this.handleInputChange("nameRegister", e.target.value);
                         }}
@@ -146,6 +145,9 @@ class Register extends React.Component {
                     <Label>password</Label>
                     <InputField
                         placeholder="Enter here.."
+                        onClick={e => {
+                            e.target.placeholder="Choose your pw wisely";
+                        }}
                         onChange={e => {
                             this.handleInputChange("passwordRegister", e.target.value);
                         }}

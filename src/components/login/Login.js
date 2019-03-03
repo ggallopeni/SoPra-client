@@ -6,6 +6,7 @@ import User from "../shared/models/User";
 import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
+
 const FormContainer1 = styled.div`
   margin-top: 2em;
   display: flex;
@@ -91,6 +92,7 @@ class Login extends React.Component {
    * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
    */
   login() {
+
     fetch(`${getDomain()}/login`, {
       method: "POST",
       headers: {
@@ -105,9 +107,12 @@ class Login extends React.Component {
       .then(returnedUser => {
 
         if(returnedUser.ok){
-          //console.log(returnedUser)
+
+          console.log(this.state.status);
+
+
           // store the token into the local storage
-          localStorage.setItem("token", returnedUser.token);
+          localStorage.setItem("token", returnedUser.json().token);
           // user login successfully worked --> navigate to the route /game in the GameRouter
           this.props.history.push(`/game`);
         }

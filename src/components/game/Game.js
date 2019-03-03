@@ -3,10 +3,25 @@ import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import Player from "../../views/Player";
+import {Id, Name, UserName} from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
+import UserProfile from "../../views/UserProfile";
+import { Route } from "react-router-dom";
+import "/Users/getoargallopeni/Desktop/SoPra-client/src/views/UserProfileStylesheet.css";
 
+
+
+const TitleContainer = styled.div`
+  margin: 6px 0;
+  width: 350px;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  border: 1px hidden #ffffff26;
+`;
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -32,14 +47,38 @@ class Game extends React.Component {
       users: null
     };
   }
+  seeProfile(seeID){
+    fetch(`${getDomain()}/users/${seeID}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+        .then(response => response.json())
+        .then(user4Profile => {
+
+          console.log(user4Profile);
+        })
+  }
 
   logout() {
+    /*fetch(`${getDomain()}/users`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        logout: "OFFLINE",
+      })
+    })
+        .then()*/
+
     localStorage.removeItem("token");
     this.props.history.push("/login");
   }
 
   componentDidMount() {
-    fetch(`${getDomain()}/login`, {
+    fetch(`${getDomain()}/users`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -70,11 +109,15 @@ class Game extends React.Component {
         ) : (
           <div>
             <Users>
+              <TitleContainer><Name>Name</Name> <UserName>Username</UserName>
+                <Id>ID</Id>
+              </TitleContainer>
               {this.state.users.map(user => {
                 return (
-                  <PlayerContainer key={user.id}>
-                    <Player user={user}  />
 
+
+                    <PlayerContainer key={user.id}>
+                      <Player className="username" user={user}/>
                   </PlayerContainer>
                 );
               })}

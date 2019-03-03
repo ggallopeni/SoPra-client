@@ -6,6 +6,8 @@ import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
 import Register from "../../login/Register";
 import LoginRegister from "../../login/LoginRegister";
+import UserProfile from "../../../views/UserProfile";
+import {ProfileGuard} from "../routeProtectors/ProfileGuard";
 
 /**
  * Main router of your application.
@@ -30,6 +32,7 @@ class AppRouter extends React.Component {
                 </GameGuard>
               )}
             />
+
             <Route
               path="/login"
               exact
@@ -39,6 +42,7 @@ class AppRouter extends React.Component {
                   </LoginGuard>
               )}
              />
+
               <Route
                   path="/register"
                   exact
@@ -49,11 +53,23 @@ class AppRouter extends React.Component {
                   )}
             />
               <Route
-                  path="/loginregister"
+                  path="/users"
                   exact
                   render={() => (
 
                       <LoginRegister />
+
+                  )}
+              />
+              <Route
+                  path="/profile"
+                  //exact
+                  component={UserProfile}
+                  render={() => (
+
+                      <UserProfile/>
+
+
 
                   )}
               />

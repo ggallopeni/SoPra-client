@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import "./UserProfileStylesheet.css";
 
 const Container = styled.div`
   margin: 6px 0;
-  width: 280px;
+  width: 350px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -11,27 +13,22 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const UserName = styled.div`
+export const UserName = styled.div`
   font-weight: lighter;
-  margin-left: 5px;
+  margin-left: auto;
 `;
 
-const Name = styled.div`
+export const Name = styled.div`
   font-weight: bold;
   color: #06c4ff;
 `;
 
-const Password = styled.div`
-  font-weight: lighter;
-  color: #FF0000;
-  margin-left: auto;
-`;
-
-const Id = styled.div`
+export const Id = styled.div`
   margin-left: auto;
   margin-right: 10px;
   font-weight: bold;
 `;
+
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -44,10 +41,20 @@ const Id = styled.div`
 const Player = ({ user }) => {
   return (
     <Container>
-      <Name>{user.name}</Name> <UserName>{user.username}</UserName><Password>{user.password}</Password>
+        <Name>{user.name}</Name>
+        <UserName>
+        <Link className="link" to={{
+            pathname: "/profile/",
+            state: user,
+        }}>{user.username}</Link>
+        </UserName>
+
       <Id>Id: {user.id}</Id>
 
+
     </Container>
+
+
   );
 };
 
