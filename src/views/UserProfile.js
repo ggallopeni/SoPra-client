@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import "./UserProfileStylesheet.css"
-
-
+import { Button } from "./design/Button";
+import { Redirect } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 
@@ -40,7 +41,8 @@ class UserProfile extends React.Component {
         ID: null,
         pw: null,
         status: null,
-        cDate: null
+        cDate: null,
+        bd: null
     }
 }
 
@@ -55,26 +57,13 @@ class UserProfile extends React.Component {
             ID: this.props.location.state.id,
             pw: this.props.location.state.password,
             status: this.props.location.state.status,
-            cDate: this.props.location.state.date
-        })
-        /*fetch(`${getDomain()}/users/${this.props.location.state.id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => response.json())
-            .then(user4Profile => {
-                this.setState({
-                    username: user4Profile.username,
-                    ID: user4Profile.id,
-                    pw: user4Profile.password
-                });
-                console.log(user4Profile);
-                console.log("THis should be the UN:"+user4Profile.username);
-                console.log("THis should be the UN:"+this.state.username)
-            })*/
+            cDate: this.props.location.state.date,
+            bd: this.props.location.state.birthday
+        });
+        /*console.log(this.props.location.state.token);
+        console.log(localStorage.getItem("token"));*/
     }
+
 
     render() {
 
@@ -97,7 +86,6 @@ class UserProfile extends React.Component {
                         </td>
                         <td><Data>{this.state.username}</Data></td>
                     </tr>
-
                     <tr>
                         <td>
                             <Descriptor>STATUS:</Descriptor>
@@ -114,6 +102,21 @@ class UserProfile extends React.Component {
                             <Data>{this.state.cDate}</Data>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <Descriptor>BIRTHDAY:</Descriptor>
+                        </td>
+                        <td>
+                            <Data>{this.state.bd}</Data>
+                        </td>
+                    </tr>
+                    <tr><Link to={{
+                        pathname: "/edit",
+                        state: this.state,
+                    }}><Button
+                    disabled={this.props.location.state.token !== localStorage.getItem("token")} //sorgt dafür, dass jeder nur sein eigenes Profil bearbeiten kann.
+                    >
+                        EDIT</Button></Link></tr>
                 </table>
             </Container>
         );

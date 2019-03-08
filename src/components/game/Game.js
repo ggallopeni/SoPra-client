@@ -58,20 +58,20 @@ class Game extends React.Component {
         })
   }
 
-  logout() {
-    /*fetch(`${getDomain()}/users`, {
+  logout(logoutToken) {
+    fetch(`${getDomain()}/users/logout/${logoutToken}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        logout: "OFFLINE",
+        logout: "OFFLINE" //braucht es eigentlich gar nicht...
       })
-    })
-        .then()*/
+    });
 
     localStorage.removeItem("token");
     this.props.history.push("/login");
+
   }
 
   componentDidMount() {
@@ -122,7 +122,8 @@ class Game extends React.Component {
             <Button
               width="100%"
               onClick={() => {
-                this.logout();
+                //console.log(localStorage.getItem("token"))
+                this.logout(localStorage.getItem("token"));
               }}
             >
               Logout

@@ -8,6 +8,7 @@ import Register from "../../login/Register";
 import LoginRegister from "../../login/LoginRegister";
 import UserProfile from "../../../views/UserProfile";
 import {ProfileGuard} from "../routeProtectors/ProfileGuard";
+import Edit from "./../../Profile/Edit";
 
 /**
  * Main router of your application.
@@ -62,16 +63,21 @@ class AppRouter extends React.Component {
                   )}
               />
               <Route
+                  path="/edit"
+                  //exact
+                  component={Edit}
+              />
+              <Route
                   path="/profile"
                   //exact
                   component={UserProfile}
-                  render={() => (
+                  /*render={() => (
 
                       <UserProfile/>
 
 
 
-                  )}
+                  )}*/
               />
             <Route path="/" exact render={() => <Redirect to={"/game"} />} />
           </div>
@@ -82,5 +88,5 @@ class AppRouter extends React.Component {
 }
 /*
 * Don't forget to export your component!
- */
+*/
 export default AppRouter;

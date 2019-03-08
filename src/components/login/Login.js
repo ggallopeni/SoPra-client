@@ -46,6 +46,20 @@ const InputField = styled.input`
   background: rgba(255, 255, 255, 0.2);
   color: white;
 `;
+const PwInputField = styled.input`
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+  }
+  height: 35px;
+  padding-left: 15px;
+  margin-left: -4px;
+  border: none;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  
+`;
 export const Titel = styled.label`
   color: white;
   font-size:22px;
@@ -104,17 +118,17 @@ class Login extends React.Component {
       })
     })
 
-      .then(returnedUser => {
+      .then(response => {
 
-        if(returnedUser.ok){
+        if(response.ok){
+            response.json().then(returnedUser => {
+                // store the token into the local storage
+                localStorage.setItem("token", returnedUser.token);
 
-          console.log(this.state.status);
-
-
-          // store the token into the local storage
-          localStorage.setItem("token", returnedUser.json().token);
-          // user login successfully worked --> navigate to the route /game in the GameRouter
-          this.props.history.push(`/game`);
+                // user login successfully worked --> navigate to the route /game in the GameRouter
+               console.log(returnedUser.id);
+                this.props.history.push(`/game`);
+            });
         }
         else{
           alert("User not known.")
@@ -136,7 +150,7 @@ class Login extends React.Component {
    * @param key (the key of the state for identifying the field that needs to be updated)
    * @param value (the value that gets assigned to the identified state key)
    */
-  handleInputChange(key, value) {
+ handleInputChange(key, value) {
     // Example: if the key is username, this statement is the equivalent to the following one:
     // this.setState({'username': value});
     this.setState({ [key]: value });
@@ -165,7 +179,7 @@ class Login extends React.Component {
               }}
             />
             <Label>Password</Label>
-            <InputField
+            <InputField type="password"
               placeholder="Enter here.."
               onChange={e => {
                 this.handleInputChange("password", e.target.value);

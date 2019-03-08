@@ -7,22 +7,23 @@ import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
 
-const FormContainerReg = styled.div`
+export const FormContainerReg = styled.div`
   margin-top: 2em;
   display: flex;
-  width: 50%;
+  width: 40%;
   float:right;
   flex-direction: column;
   align-items: center;
-  min-height: 300px;
+  min-height: 370px;
   justify-content: center;
 `;
+
 const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 80%;
-  height: 375px;
+  height: 460px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
@@ -45,7 +46,7 @@ const InputField = styled.input`
   background: rgba(255, 255, 255, 0.2);
   color: white;
 `;
-const Titel = styled.label`
+export const Titel = styled.label`
   color: white;
   font-size:22px;
   margin-bottom: 10px;
@@ -71,7 +72,8 @@ class Register extends React.Component {
         this.state = {
             usernameRegister: null,
             nameRegister: null,
-            passwordRegister: null
+            passwordRegister: null,
+            birthdayRegister: null
         };
     }
 
@@ -84,14 +86,14 @@ class Register extends React.Component {
             body: JSON.stringify({
                 username: this.state.usernameRegister,
                 name: this.state.nameRegister,
-                password: this.state.passwordRegister
+                password: this.state.passwordRegister,
+                birthday: this.state.birthdayRegister
             })
         })
 
             .then(returnedUser => {
 
                 if(returnedUser.ok){
-                    console.log(returnedUser.json());
 
                     const user = new User(returnedUser);
                     //localStorage.setItem("token", user.token);
@@ -142,8 +144,15 @@ class Register extends React.Component {
                             this.handleInputChange("nameRegister", e.target.value);
                         }}
                     />
-                    <Label>password</Label>
+                    <Label>Birthday</Label>
                     <InputField
+                        placeholder="dd/mm/yyyy"
+                        onChange={e => {
+                            this.handleInputChange("birthdayRegister", e.target.value);
+                        }}
+                    />
+                    <Label>password</Label>
+                    <InputField type="password"
                         placeholder="Enter here.."
                         onClick={e => {
                             e.target.placeholder="Choose your pw wisely";
