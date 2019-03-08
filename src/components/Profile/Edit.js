@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import "/Users/getoargallopeni/Desktop/SoPra-client/src/views/UserProfileStylesheet.css"
+import "./../../views/UserProfileStylesheet.css"
 import { Redirect } from "react-router-dom";
 import { FormContainerReg, Titel } from "./../login/Register";
 import {Button} from "../../views/design/Button";
@@ -144,18 +144,10 @@ class Edit extends React.Component{
                                 Change!
                             </Button>
                         </ButtonContainer>
-
-
                 </EditFormContainer>
-
             </EditContainer>
         )
     }
-
-
-
-
-
 }
 
 export default Edit;
