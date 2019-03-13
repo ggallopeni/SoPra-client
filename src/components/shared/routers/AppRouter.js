@@ -7,7 +7,6 @@ import Login from "../../login/Login";
 import Register from "../../login/Register";
 import LoginRegister from "../../login/LoginRegister";
 import UserProfile from "../../../views/UserProfile";
-import {ProfileGuard} from "../routeProtectors/ProfileGuard";
 import Edit from "./../../Profile/Edit";
 
 /**

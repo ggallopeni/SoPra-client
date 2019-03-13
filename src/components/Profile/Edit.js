@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import "./../../views/UserProfileStylesheet.css"
-import { Redirect } from "react-router-dom";
-import { FormContainerReg, Titel } from "./../login/Register";
+import { Titel } from "./../login/Register";
 import {Button} from "../../views/design/Button";
 import {ButtonContainer, Label} from "../login/Login";
 import {getDomain} from "../../helpers/getDomain";
@@ -10,7 +9,7 @@ import {getDomain} from "../../helpers/getDomain";
 
 const EditContainer = styled.div`
     margin: auto;
-    width: 550px;
+    width: 580px;
     padding: 10px;
     border-radius: 6px;
     display: flex;
@@ -21,9 +20,9 @@ const EditContainer = styled.div`
 `;
 
 const EditFormContainer = styled.div`
-  margin-top: 2em;
+  margin-top: 1em;
   display: flex;
-  width: 100%;
+  width: 140%;
   float:right;
   flex-direction: column;
   align-items: center;

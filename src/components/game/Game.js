@@ -86,9 +86,10 @@ class Game extends React.Component {
         // delays continuous execution of an async operation for 0.8 seconds.
         // This is just a fake async call, so that the spinner can be displayed
         // feel free to remove it :)
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise(resolve => setTimeout(resolve, 200));
 
         this.setState({ users });
+        console.log(this.state)
       })
       .catch(err => {
         console.log(err);
@@ -122,7 +123,6 @@ class Game extends React.Component {
             <Button
               width="100%"
               onClick={() => {
-                //console.log(localStorage.getItem("token"))
                 this.logout(localStorage.getItem("token"));
               }}
             >

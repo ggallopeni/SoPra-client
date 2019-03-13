@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import "./UserProfileStylesheet.css"
 import { Button } from "./design/Button";
-import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 
@@ -49,17 +48,18 @@ class UserProfile extends React.Component {
 
 
     componentDidMount() {
-        /**First idea was to send a GET request to the given API for a user.
-         The problem was that I didn't know how to transfer the ID of the selected user from Game.js to UserProfile.js
-         I ended up transfering the user as an object over the URI... **/
+
         this.setState({
             username: this.props.location.state.username,
             ID: this.props.location.state.id,
             pw: this.props.location.state.password,
             status: this.props.location.state.status,
-            cDate: this.props.location.state.date,
+            cDate: this.props.location.state.creationDate,
             bd: this.props.location.state.birthday
         });
+        console.log(this.props.location.state.creationDate);
+        console.log(this.state.cDate);
+        console.log(this.props.location.state.username)
         /*console.log(this.props.location.state.token);
         console.log(localStorage.getItem("token"));*/
     }

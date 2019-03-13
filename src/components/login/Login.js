@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import User from "../shared/models/User";
 import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
@@ -46,20 +45,6 @@ const InputField = styled.input`
   background: rgba(255, 255, 255, 0.2);
   color: white;
 `;
-const PwInputField = styled.input`
-  &::placeholder {
-    color: rgba(255, 255, 255, 0.2);
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: -4px;
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  
-`;
 export const Titel = styled.label`
   color: white;
   font-size:22px;
@@ -78,22 +63,8 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
-/**
- * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
- * You should have a class (instead of a functional component) when:
- * - You need an internal state that cannot be achieved via props from other parent components
- * - You fetch data from the server (e.g., in componentDidMount())
- * - You want to access the DOM via Refs
- * https://reactjs.org/docs/react-component.html
- * @Class
- */
 class Login extends React.Component {
-  /**
-   * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
-   * The constructor for a React component is called before it is mounted (rendered).
-   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
-   * These fields are then handled in the onChange() methods in the resp. InputFields
-   */
+
   constructor() {
     super();
     this.state = {
@@ -101,10 +72,6 @@ class Login extends React.Component {
       password: null
     };
   }
-  /**
-   * HTTP POST request is sent to the backend.
-   * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
-   */
   login() {
 
     fetch(`${getDomain()}/login`, {
@@ -126,7 +93,6 @@ class Login extends React.Component {
                 localStorage.setItem("token", returnedUser.token);
 
                 // user login successfully worked --> navigate to the route /game in the GameRouter
-               console.log(returnedUser.id);
                 this.props.history.push(`/game`);
             });
         }
@@ -144,25 +110,13 @@ class Login extends React.Component {
         }
       });
   }
-
-  /**
-   *  Every time the user enters something in the input field, the state gets updated.
-   * @param key (the key of the state for identifying the field that needs to be updated)
-   * @param value (the value that gets assigned to the identified state key)
-   */
  handleInputChange(key, value) {
     // Example: if the key is username, this statement is the equivalent to the following one:
     // this.setState({'username': value});
     this.setState({ [key]: value });
   }
 
-  /**
-   * componentDidMount() is invoked immediately after a component is mounted (inserted into the tree).
-   * Initialization that requires DOM nodes should go here.
-   * If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
-   * You may call setState() immediately in componentDidMount().
-   * It will trigger an extra rendering, but it will happen before the browser updates the screen.
-   */
+
   componentDidMount() {}
 
   render() {
